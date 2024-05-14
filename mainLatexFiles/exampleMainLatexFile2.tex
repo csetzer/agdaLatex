@@ -1,0 +1,24 @@
+\documentclass{article}
+%\usepackage{doc} %% Defines in v3 (2022) code environment clashing with agda.sty
+\bibliographystyle{plainurl}
+\usepackage{amssymb}
+
+\input macrosAgdaAdaption
+
+% import the latex files generated from the agda files
+\input ../latex/example
+\input ../latex/example2
+
+\begin{document}
+
+Here is some text:
+
+\exampleN
+
+
+Here is some other text:
+
+\exampleTwoN
+\bibliography{ref}
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass{article}
+%\usepackage{doc} % incompatible with agda.sty
+
+\bibliographystyle{plainurl}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\input macrosAgdaAdaption
+
+% import the latex files generated from the agda files
+\input ../latex/example.tex
+\input ../latex/example2.tex
+
+\begin{document}
+
+Here is some text:
+
+\exampleN
+
+
+
+Here is some other text:
+
+\exampleTwoN
+
+Here is inline etxt: \exampleT
+
+Example reference: \cite{JFP:ooAgda}
+
+% Example importing a subdirectory
+\input exampleNormLatexDir/exampleSubFile
+
+\bibliography{ref}
+\end{document}

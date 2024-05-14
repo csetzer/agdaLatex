@@ -1,0 +1,139 @@
+\usepackage{textgreek}
+\usepackage{../latex-before-sed/agda}
+
+% Space inserted after tokens.
+%\newcommand{\AgdaSpace}{ }
+\newcommand{\AgdaOption}      [1]
+    {\AgdaNoSpaceMath{\AgdaCommentFontStyle{\textcolor{AgdaOption}{#1}}}}
+
+
+%% \newcommand{\AgdaPragma}      [1]
+%%     {\AgdaNoSpaceMath{\AgdaCommentFontStyle{\textcolor{AgdaPragma}{#1}}}}
+
+
+%% \definecolor{AgdaOption}       {HTML}{000000}
+
+%% \ifthenelse{\equal{\AgdaColourScheme}{bw}}{
+%% \definecolor{AgdaPragma}       {HTML}{000000}
+%% }{
+%%     \definecolor{AgdaPragma}       {HTML}{000000}
+
+%% }
+%% \newlength{\AgdaEmptyExtraSkip}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                      %%%
+%%% Commands for dealing with lagda files                %%%
+%%%                                                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareUnicodeCharacter{1D4D4}{\ensuremath{\mathcal{E}}}
+\DeclareUnicodeCharacter{1D4C1}{\ensuremath{\ell}}
+\DeclareUnicodeCharacter{02E2}{\ensuremath{{}^{\mathsf{s}}}}
+\DeclareUnicodeCharacter{1D9C}{\ensuremath{{}^{\mathsf{c}}}}
+%\DeclareUnicodeCharacter{1D52}{\ensuremath{{}^{\mathrm{o}}}} % UNUSED
+\DeclareUnicodeCharacter{1D62}{\ensuremath{{}_i}}
+\DeclareUnicodeCharacter{2092}{\ensuremath{{}_o}}
+\DeclareUnicodeCharacter{1D64}{\ensuremath{{}_u}}
+% ALT: rm variant (Andreas: I think italics looks better)
+%\DeclareUnicodeCharacter{1D62}{\ensuremath{{}_{\mathrm{i}}}}
+%\DeclareUnicodeCharacter{2092}{\ensuremath{{}_{\mathrm{o}}}}  % or italics?
+\DeclareUnicodeCharacter{2115}{\ensuremath{\mathbb{N}}}
+\DeclareUnicodeCharacter{2080}{\ensuremath{{}_{0}}}
+\DeclareUnicodeCharacter{2081}{\ensuremath{{}_{1}}}
+\DeclareUnicodeCharacter{2082}{\ensuremath{{}_{2}}}
+\DeclareUnicodeCharacter{2083}{\ensuremath{{}_{3}}}
+\DeclareUnicodeCharacter{2084}{\ensuremath{{}_{4}}}
+\DeclareUnicodeCharacter{2085}{\ensuremath{{}_{5}}}
+\DeclareUnicodeCharacter{2086}{\ensuremath{{}_{6}}}
+\DeclareUnicodeCharacter{2099}{\ensuremath{{}_{n}}} % here we use italics
+\DeclareUnicodeCharacter{2237}{\ensuremath{::}}
+\DeclareUnicodeCharacter{2243}{\ensuremath{\simeq}}
+\DeclareUnicodeCharacter{22A5}{\ensuremath{\perp}}
+\DeclareUnicodeCharacter{25B9}{\ensuremath{\vartriangleright}}
+\newcommand{\cdotWithoutSpace}{{\mkern 2mu\cdot\mkern 2mu}}
+\DeclareUnicodeCharacter{B7}{\ensuremath{\cdotWithoutSpace}}
+
+\newcommand{\agdaField}{\AgdaKeyword{field}}
+
+\newcommand{\inPUnf}[2]{\AgdaDatatype{∈PUnf[}\;#1\;\AgdaDatatype{,}\;#2\;\AgdaDatatype{]}}
+
+\newcommand{\inUnf}[3]{\AgdaDatatype{∈Unf[}\;#1\;\AgdaDatatype{,}\;#2\AgdaDatatype{,}\;#3\;\AgdaDatatype{]}}
+\newcommand{\PUnfRnf}{\AgdaFunction{PUnf2ℜnf}}
+\newcommand{\UnfPUnf}{\AgdaFunction{Unf2PUnf}}
+\newcommand{\Termagda}{\AgdaDatatype{Term}}
+\newcommand{\Ragda}{\AgdaDatatype{ℜ}}
+\newcommand{\inRnf}{\AgdaDatatype{∈ℜnf}}
+\newcommand{\inRnfDef}{\AgdaDatatype{\AgdaUnderscore{}∈ℜnf}}
+\newcommand{\innf}{\AgdaOperator{\AgdaFunction{∈nf·}}}
+\newcommand{\Rnfagda}{\AgdaDatatype{ℜnf}}
+\newcommand{\MAgda}{\AgdaDatatype{M}}
+\newcommand{\inMagdaDef}{\AgdaOperator{\AgdaDatatype{\AgdaUnderscore
+∈M}}}
+\newcommand{\inMagda}{\AgdaOperator{\AgdaDatatype{∈M}}}
+\newcommand{\inMnfagda}{\AgdaOperator{\AgdaDatatype{∈Mnf}}}
+\newcommand{\MinAgda}{\AgdaDatatype{∈M}}
+\newcommand{\natc}{\AgdaInductiveConstructor{nat}}
+\newcommand{\zeroc}{\AgdaInductiveConstructor{zero}}%
+\newcommand{\succc}{\AgdaInductiveConstructor{succ}}%
+\newcommand{\idc}{\AgdaInductiveConstructor{id}}%
+\newcommand{\invc}{\AgdaInductiveConstructor{invcc}}%
+\newcommand{\andc}{\AgdaInductiveConstructor{∧ccc}}%
+\newcommand{\orc}{\AgdaInductiveConstructor{∨ccc}}%
+\newcommand{\impliesc}{\AgdaInductiveConstructor{->>ccc}}%
+\newcommand{\forallc}{\AgdaInductiveConstructor{∀ccc}}%
+\newcommand{\existsc}{\AgdaInductiveConstructor{∃ccc}}%
+\newcommand{\puc}{\AgdaInductiveConstructor{pucc}}%
+\newcommand{\uc}{\AgdaInductiveConstructor{ucc}}%
+\newcommand{\Mc}{\AgdaInductiveConstructor{mahlocc}}%
+\newcommand{\jc}{\AgdaInductiveConstructor{jccc}}%
+\newcommand{\igc}{\AgdaInductiveConstructor{igccc}}%
+\newcommand{\NF}{\AgdaDatatype{NF}}
+\newcommand{\rednf}{\Rightarrow}
+\newcommand{\uAgda}{\AgdaInductiveConstructor{u}}
+
+
+\newcommand{\RnfToNF}{\AgdaFunction{∈ℜnf2NF}}
+\newcommand{\MnfToNF}{\AgdaFunction{∈MnftoNF}}
+\newcommand{\RnftoR}{\AgdaFunction{ℜnf2ℜ}}
+\newcommand{\MnftoR}{\AgdaFunction{Mnf2ℜ}}
+\newcommand{\MtoR}{\AgdaFunction{M⊆ℜ}}
+\newcommand{\igR}{\AgdaInductiveConstructor{igℜ}}
+%\newcommand{\inRnf}{\AgdaOperator{\AgdaFunction{∈nf·}}}
+\newcommand{\inR}{\AgdaOperator{\AgdaFunction{∈·}}}
+\newcommand{\punfafAgda}{\AgdaOperator{\AgdaDatatype{∈punf[}}\AgdaSpace{}%
+\AgdaBound{a}\AgdaSpace{}%
+\AgdaOperator{\AgdaDatatype{,}}\AgdaSpace{}%
+\AgdaBound{\,f\,}\AgdaSpace{}%
+\AgdaOperator{\AgdaDatatype{]}}}
+\newcommand{\punfafNoInAgda}{\AgdaOperator{\AgdaDatatype{punf[}}\AgdaSpace{}%
+\AgdaBound{a}\AgdaSpace{}%
+\AgdaOperator{\AgdaDatatype{,}}\AgdaSpace{}%
+\AgdaBound{\,f\,}\AgdaSpace{}%
+\AgdaOperator{\AgdaDatatype{]}}}
+
+
+
+\newcommand{\dataAgda}{\AgdaKeyword{data}}
+\newcommand{\uR}{\AgdaInductiveConstructor{uℜ}}
+\newcommand{\sxinR}{\AgdaBound{sx∈R}}
+\newcommand{\reduceL}{\AgdaFunction{reduceL}}
+%% \newcommand{\PUAgda}[2]{\AgdaOperator{\AgdaDatatype{∈PUnf[}}\AgdaSpace{}%
+%% \AgdaBound{#1}\AgdaSpace{}%
+%% \AgdaOperator{\AgdaDatatype{,}}\AgdaSpace{}%
+%% \AgdaBound{\,#2\,}\AgdaSpace{}%
+%% \AgdaOperator{\AgdaDatatype{]}}}
+\newcommand{\PUAgda}[2]{\AgdaOperator{\AgdaDatatype{∈PUnf[}}\;%
+\AgdaBound{#1}\;%
+\AgdaOperator{\AgdaDatatype{,}}\;%
+\AgdaBound{\,#2\,}\;%
+\AgdaOperator{\AgdaDatatype{]}}}
+
+\newcommand{\NormalizeAgda}{\AgdaDatatype{Normalize}}
+\newcommand{\reduceAgda}{\AgdaFunction{reduce}}
+\newcommand{\nfAgda}{\AgdaFunction{nf}}
+\newcommand{\nftAgda}{  \AgdaInductiveConstructor{nft}}
+\newcommand{\capRAgda}{\AgdaInductiveConstructor{∩ℜ}}
+\newcommand{\capRAgdaWithUnderscsore}{\AgdaInductiveConstructor{\AgdaUnderscore{}∩ℜ\AgdaUnderscore{}}}
+\newcommand{\agdaUnderscoreInductiveConstructor}{\AgdaInductiveConstructor{\AgdaUnderscore{}}}
