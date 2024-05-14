@@ -8,6 +8,13 @@ and example latex, bibtex, and agda files
 which allows to integrate agda files into Latex, by using normal
 agda files.
 
+## Slides
+
+slidesCodesprintProposal-AgdaMeetingXXXVIII-SwanseaMay2024.pdf
+
+contains the original proposal for a code sprint
+from the Agda Implementors Meeting XXXVIII Swansea 13 May 2024
+
 
 ## Example
 

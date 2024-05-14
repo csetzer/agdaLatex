@@ -6,7 +6,6 @@
 *.hd
 *.out
 *.ptb
-*.pdf
 lagda/
 latex/
 latex-before-sed/
