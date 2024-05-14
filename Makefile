@@ -48,6 +48,14 @@ mainLatexFile1 = exampleMainLatexFile1
 
 mainLatexFile2 = exampleMainLatexFile2
 
+# whether to run bibtex on mainLatexFile1
+
+bibtexMainLatexFile1 = true
+
+# whether to run bibtex on mainLatexFile2
+
+bibtexMainLatexFile2 = false
+
 # normalLatexFiles
 # defines all latex files not created from agda, which
 # your current latex file depends on
@@ -289,7 +297,7 @@ $(mainLatexFileDir)/$(mainLatexFile1)_aux : $(mainLatexFileDir)/$(mainLatexFile1
 
 $(mainLatexFileDir)/$(mainLatexFile1).pdf : $(files) $(mainLatexFileDir)/$(mainLatexFile1)_aux
 	echo "Phase 2.2 run bibtex then pdflatex twice"
-	cd $(mainLatexFileDir); $(bibtex) $(mainLatexFile1)
+	if $(bibtexMainLatexFile1); then cd $(mainLatexFileDir); $(bibtex) $(mainLatexFile1); fi
 	cd $(mainLatexFileDir); if [ -f $(mainLatexFile1).aux ] ; then  sed -i.bak --file ../postprocessAuxFile.sed $(mainLatexFile1).aux ; fi
 	cd $(mainLatexFileDir); $(pdflatex) $(mainLatexFile1).tex
 	cd $(mainLatexFileDir); $(pdflatex) $(mainLatexFile1).tex
@@ -320,7 +328,7 @@ $(mainLatexFileDir)/$(mainLatexFile2)_aux : $(mainLatexFileDir)/$(mainLatexFile2
 
 $(mainLatexFileDir)/$(mainLatexFile2).pdf : $(files) $(mainLatexFileDir)/$(mainLatexFile2)_aux
 	echo "Phase 2.2 run bibtex then pdflatex twice"
-	cd $(mainLatexFileDir); $(bibtex) $(mainLatexFile2)
+	if $(bibtexMainLatexFile1); then cd $(mainLatexFileDir); $(bibtex) $(mainLatexFile1); fi
 	cd $(mainLatexFileDir); if [ -f $(mainLatexFile2).aux ] ; then  sed -i.bak --file ../postprocessAuxFile.sed $(mainLatexFile2).aux ; fi
 	cd $(mainLatexFileDir); $(pdflatex) $(mainLatexFile2).tex
 	cd $(mainLatexFileDir); $(pdflatex) $(mainLatexFile2).tex

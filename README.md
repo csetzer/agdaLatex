@@ -42,6 +42,18 @@ and an inline agda macro
 
 \exampleT
 
+## Requirements and Execution
+
+You need to have awk, sed, GNU make
+
+To create the generated latex files, run latex and bibtex on the mainLatexFile1
+execute
+
+make
+
+To do the same for mainLatexFile2 execute
+make default2
+
 
 ## Syntax for Agda files
 
@@ -111,6 +123,8 @@ instead of
 The configuration is
 - mainLatexFileDir is where your main latex files are located
   the default is   mainLatexFiles
+- bibtexMainLatexFile1, bibtexMainLatexFile2   determine whether to run bibtex on mainLatexFile1, 
+  mainLatexFile2 respectively
 - mainAgdaDir is the root directory where your agda files are located
   the default is agda
 - generatedLagdaDir is a directory where generated lagda files are

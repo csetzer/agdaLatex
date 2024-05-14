@@ -20,3 +20,8 @@ main_aux
 agda/_build/
 mainLatexFiles/.emacsBackup/
 mainLatexFiles/exampleMainLatexFile1_aux
+mainLatexFiles/exampleMainLatexFile1.pdf
+mainLatexFiles/exampleMainLatexFile1x.pdf
+mainLatexFiles/exampleMainLatexFile2.pdf
+mainLatexFiles/exampleMainLatexFile2_aux
+mainLatexFiles/exampleMainLatexFile2x.pdf
