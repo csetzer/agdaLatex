@@ -23,5 +23,5 @@ mutual
     N : U
 
   T : U → Set
-  T N = ℕ 
+  T N = ℕ
 --@END

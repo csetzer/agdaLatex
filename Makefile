@@ -1,7 +1,7 @@
 #############################################################
-#							    #
+#                                                           #
 #             Begin Configuration                           #
-#							    #
+#                                                           #
 #############################################################
 
 # directory containing the main latex files:
@@ -29,7 +29,7 @@ generatedAgdaLatexFileDir = agdaLatex
 #
 # and to run the script you execute
 #
-# make 
+# make
 #
 # The second main latex file is called
 #
@@ -62,7 +62,7 @@ bibtexMainLatexFile2 = false
 # your current latex file depends on
 #
 # they are only needed to make sure that when any of those files
-#   changes latex is rerun 
+#   changes latex is rerun
 #
 # The example includes all .tex files in the current directory
 
@@ -71,7 +71,7 @@ normalBibtexfiles = $(shell find $(mainLatexFileDir) -name '*.bib')
 
 
 # neededAgdaFiles are those files in the directory agda
-#  for which we want to generate a latex file which is used in 
+#  for which we want to generate a latex file which is used in
 #  the main latex file
 #
 #  files where an agda file depends on which is not used for latex
@@ -79,12 +79,12 @@ normalBibtexfiles = $(shell find $(mainLatexFileDir) -name '*.bib')
 #
 
 neededAgdaFiles= example.agda \
-	example2.agda
+        example2.agda
 
 #############################################################
-#							    #
+#                                                           #
 #             End of Configuration                          #
-#							    #
+#                                                           #
 #############################################################
 
 # File name Convention
@@ -92,7 +92,7 @@ neededAgdaFiles= example.agda \
 # lagdaFiles           refers to files in directory lagda
 # latexBeforeSedFiles  refers to files in directory latex-before-sed
 # agdaLatexFiles       refers to files in directory latex
-#                      (note not: latexFiles, in order to avoid with general 
+#                      (note not: latexFiles, in order to avoid with general
 #                       latex files)
 # existing..           are files which existed already
 # normalLatexFiles     are files which are non-generated latex files
@@ -115,7 +115,7 @@ existingLatexBeforeSedFiles := $(shell find $(generatedAgdaLatexBeforeSedFileDir
 
 existingAgdaLatexFiles := $(shell find $(generatedAgdaLatexFileDir) -name '*.tex')
 
-existingAgdaiFiles = $(shell find $(mainAgdaDir) -name '*.agdai')  $(shell find $(generatedLagdaDir) -name '*.agdai') 
+existingAgdaiFiles = $(shell find $(mainAgdaDir) -name '*.agdai')  $(shell find $(generatedLagdaDir) -name '*.agdai')
 
 
 # normalLatexfiles  are the latex files which are not generated from agda files
@@ -136,9 +136,9 @@ existingAgdaiFiles = $(shell find $(mainAgdaDir) -name '*.agdai')  $(shell find 
 #     including subdirectories
 
 
-directories= 	$(generatedAgdaLatexFileDir) \
-	$(generatedAgdaLatexBeforeSedFileDir) \
-	$(generatedLagdaDir) 
+directories=    $(generatedAgdaLatexFileDir) \
+        $(generatedAgdaLatexBeforeSedFileDir) \
+        $(generatedLagdaDir)
 
 #   (including the subdirectories of
 #    latex   latex-before-sed lagda
@@ -154,7 +154,7 @@ directories= 	$(generatedAgdaLatexFileDir) \
 neededLagdaLibraryFiles = $(patsubst $(mainAgdaDir)/%,$(generatedLagdaDir)/%,$(existingLibraryFiles))
 
 neededLagdaFiles= \
-  $(patsubst $(mainAgdaDir)/%.agda,$(generatedLagdaDir)/%.lagda,$(existingAgdaFiles)) 
+  $(patsubst $(mainAgdaDir)/%.agda,$(generatedLagdaDir)/%.lagda,$(existingAgdaFiles))
 
 
 #  the needed latexBeforeSedFiles are only the needed ones
@@ -169,25 +169,25 @@ neededAgdaLatexFiles= \
   $(patsubst %.agda,$(generatedAgdaLatexFileDir)/%.tex,$(neededAgdaFiles)) #\
 
 generatedLatexFiles = $(mainLatexFileDir)/$(mainLatexFile1).out \
-	$(mainLatexFileDir)/$(mainLatexFile1)x.pdf \
-	$(mainLatexFileDir)/$(mainLatexFile1).pdf \
-	$(mainLatexFileDir)/$(mainLatexFile1).log  \
-	$(mainLatexFileDir)/$(mainLatexFile1).aux \
-	$(mainLatexFileDir)/$(mainLatexFile1).aux.bak \
-	$(mainLatexFileDir)/$(mainLatexFile1).bbl \
-	$(mainLatexFileDir)/$(mainLatexFile1).blg \
-	$(mainLatexFileDir)/$(mainLatexFile1).ptb \
-	$(mainLatexFileDir)/$(mainLatexFile1)_aux \
-	$(mainLatexFileDir)/$(mainLatexFile2).out \
-	$(mainLatexFileDir)/$(mainLatexFile2)x.pdf \
-	$(mainLatexFileDir)/$(mainLatexFile2).pdf \
-	$(mainLatexFileDir)/$(mainLatexFile2).log  \
-	$(mainLatexFileDir)/$(mainLatexFile2).aux \
-	$(mainLatexFileDir)/$(mainLatexFile2).aux.bak \
-	$(mainLatexFileDir)/$(mainLatexFile2).bbl\
-	$(mainLatexFileDir)/$(mainLatexFile2).blg \
-	$(mainLatexFileDir)/$(mainLatexFile2).ptb \
-	$(mainLatexFileDir)/$(mainLatexFile2)_aux 
+        $(mainLatexFileDir)/$(mainLatexFile1)x.pdf \
+        $(mainLatexFileDir)/$(mainLatexFile1).pdf \
+        $(mainLatexFileDir)/$(mainLatexFile1).log  \
+        $(mainLatexFileDir)/$(mainLatexFile1).aux \
+        $(mainLatexFileDir)/$(mainLatexFile1).aux.bak \
+        $(mainLatexFileDir)/$(mainLatexFile1).bbl \
+        $(mainLatexFileDir)/$(mainLatexFile1).blg \
+        $(mainLatexFileDir)/$(mainLatexFile1).ptb \
+        $(mainLatexFileDir)/$(mainLatexFile1)_aux \
+        $(mainLatexFileDir)/$(mainLatexFile2).out \
+        $(mainLatexFileDir)/$(mainLatexFile2)x.pdf \
+        $(mainLatexFileDir)/$(mainLatexFile2).pdf \
+        $(mainLatexFileDir)/$(mainLatexFile2).log  \
+        $(mainLatexFileDir)/$(mainLatexFile2).aux \
+        $(mainLatexFileDir)/$(mainLatexFile2).aux.bak \
+        $(mainLatexFileDir)/$(mainLatexFile2).bbl\
+        $(mainLatexFileDir)/$(mainLatexFile2).blg \
+        $(mainLatexFileDir)/$(mainLatexFile2).ptb \
+        $(mainLatexFileDir)/$(mainLatexFile2)_aux
 
 
 pdflatex=pdflatex -shell-escape -halt-on-error
@@ -200,28 +200,28 @@ sedfile=postprocess.sed
 mainlatexfiles=$(wildcard $(mainLatexFileDir)/$(mainLatexFile1)*.tex)
 
 files=postprocess.sed postprocessAuxFile.sed \
-	$(normalLatexfiles) $(neededAgdaLatexFiles) $(normalBibtexfiles)
+        $(normalLatexfiles) $(neededAgdaLatexFiles) $(normalBibtexfiles)
 
 # allfiles=$(mainLatexFileDir)/$(mainLatexFile1).tex $(files)
 
 default : $(directories) $(neededLagdaFiles) $(neededLatexBeforeSedFiles) $(neededAgdaLatexFiles)\
-	$(mainLatexFileDir)/$(mainLatexFile1).pdf \
-	$(mainLatexFileDir)/$(mainLatexFile1)x.pdf \
-#	evince $(mainLatexFile1)x.pdf &
+        $(mainLatexFileDir)/$(mainLatexFile1).pdf \
+        $(mainLatexFileDir)/$(mainLatexFile1)x.pdf \
+#       evince $(mainLatexFile1)x.pdf &
 
 
 default2 : $(directories) $(neededLagdaFiles) $(neededLatexBeforeSedFiles) $(neededAgdaLatexFiles)\
-	$(mainLatexFileDir)/$(mainLatexFile2).pdf \
-	$(mainLatexFileDir)/$(mainLatexFile2)x.pdf \
+        $(mainLatexFileDir)/$(mainLatexFile2).pdf \
+        $(mainLatexFileDir)/$(mainLatexFile2)x.pdf \
 
 
 all : $(directories) $(neededLagdaFiles) $(neededLatexBeforeSedFiles)  $(neededAgdaLatexFiles) \
-	$(mainLatexFileDir)/$(mainLatexFile1).pdf \
-	$(mainLatexFileDir)/$(mainLatexFile1)x.pdf
+        $(mainLatexFileDir)/$(mainLatexFile1).pdf \
+        $(mainLatexFileDir)/$(mainLatexFile1)x.pdf
 
 mainLatexFile2: $(directories) $(neededLagdaFiles) $(neededLatexBeforeSedFiles)  $(neededAgdaLatexFiles)\
-	$(mainLatexFileDir)/$(mainLatexFile2).pdf \
-	$(mainLatexFileDir)/$(mainLatexFile2)x.pdf
+        $(mainLatexFileDir)/$(mainLatexFile2).pdf \
+        $(mainLatexFileDir)/$(mainLatexFile2)x.pdf
 
 
 #################################################################
@@ -259,7 +259,7 @@ $(neededLagdaLibraryFiles) : $(generatedLagdaDir)/% : $(mainAgdaDir)/%
 
 # Phase 1.3: Create .lagda files from .agda files
 
-$(neededLagdaFiles) : $(generatedLagdaDir)/%.lagda : $(mainAgdaDir)/%.agda $(neededLagdaLibraryFiles) mkLagda.awk 
+$(neededLagdaFiles) : $(generatedLagdaDir)/%.lagda : $(mainAgdaDir)/%.agda $(neededLagdaLibraryFiles) mkLagda.awk
 	echo "Phase 1.3 :  create lagda files"
 	./mkLagda.awk $< > $@
 
@@ -361,12 +361,12 @@ $(mainLatexFileDir)/$(mainLatexFile2)x.pdf : $(mainLatexFileDir)/$(mainLatexFile
 
 ##########################################
 ##
-##   Clean up 
+##   Clean up
 ##
 ##########################################
 
 softcleanmalonzo :
-	/bin/rm -f $(mainAgdaDir)/MAlonzo/Code/*.hi $(mainAgdaDir)/MAlonzo/Code/*.hs $(mainAgdaDir)/MAlonzo/Code/*.o 
+	/bin/rm -f $(mainAgdaDir)/MAlonzo/Code/*.hi $(mainAgdaDir)/MAlonzo/Code/*.hs $(mainAgdaDir)/MAlonzo/Code/*.o
 
 softclean :
 	rm -f $(existingLagdaFiles)
@@ -403,10 +403,10 @@ test:
 	echo 'generatedLatexFiles'
 	echo $(generatedLatexFiles)
 	echo
-	echo existingAgdaiFiles    
-	echo $(existingAgdaiFiles)    
-	echo 
-	echo 
+	echo existingAgdaiFiles
+	echo $(existingAgdaiFiles)
+	echo
+	echo
 	echo mainlatexfiles
 	echo $(mainlatexfiles)
 
@@ -425,7 +425,7 @@ showneededLatexBeforeSedFiles :
 showcurrent_dir :
 	echo $(current_dir)
 
-shownormalLatexfiles : 
+shownormalLatexfiles :
 	echo $(normalLatexfiles)
 
 showexistingAgdaLatexFiles :
@@ -463,8 +463,5 @@ showLatexFileaux :
 	echo $(mainLatexFileDir)/$(mainLatexFile1)_aux
 	echo $(mainLatexFileDir)/$(mainLatexFile2)_aux
 showneededLagdaLibraryFiles :
-	echo $(neededLagdaLibraryFiles) 
+	echo $(neededLagdaLibraryFiles)
 # EOF
-
-
-

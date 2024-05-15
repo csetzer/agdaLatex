@@ -78,7 +78,7 @@ from which a LaTeX file is generated when running
 `make`
 
 
-## Required Software 
+## Required Software
 
 You need to have
 awk, sed, GNU make, pdflatex, bibtex, agda
@@ -136,13 +136,13 @@ The code will generate a LaTeX macro
 \`newcommand{\mymacro}{...}`
 where mymacro is the concatenation of  myprefix  and name
 
-For instance in 
+For instance in
 `agda/example.agda`
 the prefix  is given by
 
 `--@PREFIX@example`
 
-and an example is the code starting with 
+and an example is the code starting with
 
 `--@BEGIN@N`
 
@@ -179,8 +179,8 @@ The configuration is
 - `generatedAgdaLatexFileDir` is the directory where the LaTeX files generated from the agda files, called "agdaLatex" files are placed.
   - The default is `agdaLatex`
 
-- `mainLatexFile1` and `mainLatexFile2` define the two main Latex Files on which pdflatex and bibtex is executed 
-  
+- `mainLatexFile1` and `mainLatexFile2` define the two main Latex Files on which pdflatex and bibtex is executed
+
 - `bibtexMainLatexFile1`,  `bibtexMainLatexFile2`   determine whether to run bibtex on mainLatexFile1,   mainLatexFile2 respectively
 
 
@@ -188,16 +188,3 @@ The configuration is
 `generatedLagdaDir`, `generatedAgdaLatexBeforeSedFileDir`, `generatedAgdaLatexFileDir`
 for other purposes since the files there might be overwritten or
   deleted
-
-
-
-
-
-
-
-
-
-
-
-
-

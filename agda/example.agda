@@ -27,5 +27,4 @@ mutual
 --@BEGIN-inline@T
   T : U → Set
 --@END
-  T N = ℕ 
-
+  T N = ℕ
