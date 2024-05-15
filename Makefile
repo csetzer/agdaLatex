@@ -12,14 +12,15 @@ mainLatexFileDir = mainLatexFiles
 mainAgdaDir = agda
 
 # auxiliary directory containing generated lagda files
-generatedLagdaDir = lagda
+generatedLagdaDir = generatedLagda
 
 # auxiliary directory containing intermediate latex-before-sed files
 # NOTE: needs to be defined relative to the current directory
-generatedLatexBeforeSedFileDir = latex-before-sed
+
+generatedAgdaLatexBeforeSedFileDir = agdaLatex-before-sed
 
 # directory where the generated latex files will be moved
-generatedLatexFileDir = latex
+generatedAgdaLatexFileDir = agdaLatex
 
 # This script allows to create the latex files from agda file
 # and run latex on two different main latex file
@@ -96,9 +97,9 @@ neededAgdaFiles= example.agda \
 # existing..           are files which existed already
 # normalLatexFiles     are files which are non-generated latex files
 
-neededAgdaStyle = $(generatedLatexFileDir)/agda.sty
+neededAgdaStyle = $(generatedAgdaLatexFileDir)/agda.sty
 
-generatedAgdaStyle = $(generatedLatexBeforeSedFileDir)/agda.sty
+generatedAgdaStyle = $(generatedAgdaLatexBeforeSedFileDir)/agda.sty
 
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2)
 
@@ -110,9 +111,9 @@ existingAgdaFiles := $(shell find $(mainAgdaDir) -name '*.agda')
 
 existingLagdaFiles := $(shell find $(generatedLagdaDir) -name '*.lagda')
 
-existingLatexBeforeSedFiles := $(shell find $(generatedLatexBeforeSedFileDir) -name '*.tex')
+existingLatexBeforeSedFiles := $(shell find $(generatedAgdaLatexBeforeSedFileDir) -name '*.tex')
 
-existingAgdaLatexFiles := $(shell find $(generatedLatexFileDir) -name '*.tex')
+existingAgdaLatexFiles := $(shell find $(generatedAgdaLatexFileDir) -name '*.tex')
 
 existingAgdaiFiles = $(shell find $(mainAgdaDir) -name '*.agdai')  $(shell find $(generatedLagdaDir) -name '*.agdai') 
 
@@ -135,8 +136,8 @@ existingAgdaiFiles = $(shell find $(mainAgdaDir) -name '*.agdai')  $(shell find 
 #     including subdirectories
 
 
-directories= 	$(generatedLatexFileDir) \
-	$(generatedLatexBeforeSedFileDir) \
+directories= 	$(generatedAgdaLatexFileDir) \
+	$(generatedAgdaLatexBeforeSedFileDir) \
 	$(generatedLagdaDir) 
 
 #   (including the subdirectories of
@@ -162,10 +163,10 @@ neededLagdaFiles= \
 #   then called by latex
 
 neededLatexBeforeSedFiles= \
-  $(patsubst %.agda,$(generatedLatexBeforeSedFileDir)/%.tex,$(neededAgdaFiles)) \
+  $(patsubst %.agda,$(generatedAgdaLatexBeforeSedFileDir)/%.tex,$(neededAgdaFiles)) \
 
 neededAgdaLatexFiles= \
-  $(patsubst %.agda,$(generatedLatexFileDir)/%.tex,$(neededAgdaFiles)) #\
+  $(patsubst %.agda,$(generatedAgdaLatexFileDir)/%.tex,$(neededAgdaFiles)) #\
 
 generatedLatexFiles = $(mainLatexFileDir)/$(mainLatexFile1).out \
 	$(mainLatexFileDir)/$(mainLatexFile1)x.pdf \
@@ -237,8 +238,8 @@ mainLatexFile2: $(directories) $(neededLagdaFiles) $(neededLatexBeforeSedFiles) 
 
 
 
-# $(generatedLatexFileDir)/%.tex : %.lagda
-#	agda -i. -i$(agda_stdlib) --latex --latex-dir=$(generatedLatexFileDir) $<
+# $(generatedAgdaLatexFileDir)/%.tex : %.lagda
+#	agda -i. -i$(agda_stdlib) --latex --latex-dir=$(generatedAgdaLatexFileDir) $
 #	sed -i.bak --file=$(sedfile) $@
 
 
@@ -267,17 +268,17 @@ $(neededLagdaFiles) : $(generatedLagdaDir)/%.lagda : $(mainAgdaDir)/%.agda $(nee
 
 # Phase 1.4: Create latex-before-sed files from .lagda files
 
-$(neededLatexBeforeSedFiles) : $(generatedLatexBeforeSedFileDir)/%.tex : $(generatedLagdaDir)/%.lagda
+$(neededLatexBeforeSedFiles) : $(generatedAgdaLatexBeforeSedFileDir)/%.tex : $(generatedLagdaDir)/%.lagda
 	echo "Phase 1.4 create latex-before-sed files"
 	cd $(current_dir)
 	cd $(mainAgdaDir)/; agda $(patsubst $(generatedLagdaDir)/%.lagda,./%.agda,$<)
 	cd $(current_dir)
-	cd $(generatedLagdaDir)/; agda --latex --only-scope-checking --latex-dir=$(current_dir)/$(generatedLatexBeforeSedFileDir)/ $(patsubst $(generatedLagdaDir)/%.lagda,./%.lagda,$<)
+	cd $(generatedLagdaDir)/; agda --latex --only-scope-checking --latex-dir=$(current_dir)/$(generatedAgdaLatexBeforeSedFileDir)/ $(patsubst $(generatedLagdaDir)/%.lagda,./%.lagda,$<)
 
 
 # Phase 1.5: Create .tex files from latex-before-sed files
 
-$(neededAgdaLatexFiles) : $(generatedLatexFileDir)/%.tex : $(generatedLatexBeforeSedFileDir)/%.tex $(sedfile)
+$(neededAgdaLatexFiles) : $(generatedAgdaLatexFileDir)/%.tex : $(generatedAgdaLatexBeforeSedFileDir)/%.tex $(sedfile)
 	echo "Phase 1.5 create agda latex files"
 	sed --file=$(sedfile) < $< > $@
 
@@ -393,7 +394,7 @@ weakclean :
 ###########################################
 # test code which can be changed for exploring the Make file
 
-forceLatexBeforeSedTest : $(generatedLatexBeforeSedFileDir)/test.tex
+forceLatexBeforeSedTest : $(generatedAgdaLatexBeforeSedFileDir)/test.tex
 
 test:
 	echo 'existingAgdaLatexFiles'

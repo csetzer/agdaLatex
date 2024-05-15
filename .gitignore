@@ -25,3 +25,7 @@ mainLatexFiles/exampleMainLatexFile1x.pdf
 mainLatexFiles/exampleMainLatexFile2.pdf
 mainLatexFiles/exampleMainLatexFile2_aux
 mainLatexFiles/exampleMainLatexFile2x.pdf
+agdaLatex-before-sed/
+agdaLatex/
+generatedLagda/
+READMEold1.md

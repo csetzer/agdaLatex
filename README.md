@@ -3,10 +3,8 @@
 The code in this directory is based on files created by
   Andreas Abel, Stephan Adelsberger, Anton Setzer
 
-This directory contains a Makefile with some additional script
-and example latex, bibtex, and agda files
-which allows to integrate agda files into Latex, by using normal
-agda files.
+This directory contains a Makefile with some additional script and example latex, bibtex, and agda files which allows to integrate agda files into Latex files,   by using normal agda files (no need to use lagda).
+The script will generated from tagged Agda files LaTeX  macros which generate the latex code from agda files.
 
 ## Slides
 
@@ -18,51 +16,98 @@ from the Agda Implementors Meeting XXXVIII Swansea 13 May 2024
 
 ## Example
 
-One example is the file
-mainLatexFiles/exampleMainLatexFile1.tex
+*Preliminaries* The paths `mainLatexFiles`, `agda`, `generatedLagda`,
+`agdaLatex-before-sed`, `agdaLatex` used in the following
+can be customized in the Makefile.
 
-which refers to the agda file
-agda/example.agda
+The main  example is
 
-where  the prefix used in that agda file is
-example
-which is added before the macros
-and the generated latex file
-which ends up in
-latex/example.tex
+`mainLatexFiles/exampleMainLatexFile1.tex`
 
-defines macros
+which refers to the Agda file
+`agda/example.agda`
 
-\exampleN
-(formed from the prefix example and the name N)
+After running
+`make`
+a generated agdaLatex file
+`latex/example.tex`
+is created which defines LaTeX macros which, when used in a LaTeX file, adds the Agda code to LaTeX.
+The `make` command will as well run pdflatex and bibtex
+on the file
+`mainLatexFiles/exampleMainLatexFile1.tex`
 
-\exampleU
+### Example Agda file with tags
 
-and an inline agda macro
+The file `example.agda`
+
+starts with
+`--@PREFIX@example`
+
+which sets the prefix to "example"
+
+This prefix will be added in front of all LaTeX macros.
+We recommend to use for prefix a name which indicate which Agda file you are referring to so that you can find the Agda file easily, where your code and the LaTex macros are defined.
+
+*Note* LaTeX only allows in macros normal character, especially no digits, as often used for names of agda files. A workaround is to use e.g. "one" for "1", "two" for "2", etc.
+
+
+The file `example.agda` then  tags  the Agda code defining the natural numbers with name "N" using
+
+`--@BEGIN@N`
+`--@END`
+
+From this name "N" and the prefix "example" a LaTeX macro
+
+`\exampleN`
+
+is generated
+(where "exampleN"  =  "example" ++ "N" )
+
+Furthermore, the agda file has tags introducing a macro
+
+`\exampleU`
+
+and tags introducing a macro  for inline code:
 
 \exampleT
 
-## Requirements and Execution
-
-You need to have awk, sed, GNU make
-
-To create the generated latex files, run latex and bibtex on the mainLatexFile1
-execute
-
-make
-
-To do the same for mainLatexFile2 execute
-make default2
+The file
+`mainLatexFiles/exampleMainLatexFile1.tex`
+then gives example uses for these macros
+from which a LaTeX file is generated when running
+`make`
 
 
-## Syntax for Agda files
+## Required Software 
+
+You need to have
+awk, sed, GNU make, pdflatex, bibtex, agda
+installed.
+
+If using windows you might need to install Ubuntu as a Windows subsystem WSL (supported from the Microsoft store).
+
+## Main commands for geneated agdaLatex files and running LaTeX
+
+The command
+
+`make`
+
+will create the generated latex files,
+It will then execute pdflatex and bibtex on the file `mainLatexFiles/mainLatexFile1`
+
+
+To do the same for `mainLatexFiles/mainLatexFile2` execute
+`make default2`
+
+
+## Precise Syntax for Agda files
 
 This file generates from Agda files
 latex file which contain definitions
 
 \newcommand{\mymacro}{...}
 
-where \mymacro adds agda code from your agda file into
+where \mymacro adds Agda code from your Agda file into
 any existing latex file.
 
 Example files are
@@ -82,41 +127,40 @@ which defines the prefix to be used for your current agda file.
 
 Then for agda code to be included you add at the beginning
 
---@BEGIN@name
-<some agda code>
---@END
+`--@BEGIN@name`
+`some agda code`
+`--@END`
 
-Both myprefix and name should only contain normal letters
-and no digits, since a latex macro is generated from these two.x
+Both myprefix and name should only contain normal letters and no digits, since a latex macro is generated from these.
 
-The code will generate a macro
-newcommand{\mymacro}{...}
-where mymacro is the concatenation of
-myprefix  and name
+The code will generate a LaTeX macro
+\`newcommand{\mymacro}{...}`
+where mymacro is the concatenation of  myprefix  and name
 
-For instane in agda/example.agda
+For instance in 
+`agda/example.agda`
 the prefix  is given by
 
---@PREFIX@example
+`--@PREFIX@example`
 
-and an example is the code
+and an example is the code starting with 
 
---@BEGIN@N
+`--@BEGIN@N`
 
-ending with
+and ending with
 
---@END
+`--@END`
 
 which generates a macro
 
-\exampleN
+`\exampleN`
 
 ### inline code
 In order to create inline code, use
 
---@BEGIN-inline@name
+`--@BEGIN-inline@name`
 instead of
---@BEGIN@name
+`--@BEGIN@name`
 
 ## Configuration
 
