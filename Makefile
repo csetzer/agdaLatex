@@ -96,6 +96,10 @@ neededAgdaFiles= example.agda \
 # existing..           are files which existed already
 # normalLatexFiles     are files which are non-generated latex files
 
+neededAgdaStyle = $(generatedLatexFileDir)/agda.sty
+
+generatedAgdaStyle = $(generatedLatexBeforeSedFileDir)/agda.sty
+
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2)
 
 current_dir = $(shell pwd)
@@ -277,9 +281,17 @@ $(neededAgdaLatexFiles) : $(generatedLatexFileDir)/%.tex : $(generatedLatexBefor
 	echo "Phase 1.5 create agda latex files"
 	sed --file=$(sedfile) < $< > $@
 
+# Phase 1.6: Copy agda.sty file to normalLatexfiles
+#            only done if non-existing since people
+#            might want to stick to their own agda.sty filex
+$(neededAgdaStyle) :
+	echo "Phase 1.6 : Copy agda.sty file to normalLatexfiles"
+	cp $(generatedAgdaStyle) $(neededAgdaStyle)
+
+
 # Phase 2.1: update aux file then run pdflatex; this needs to be done
 #          before running bibtex.
-$(mainLatexFileDir)/$(mainLatexFile1)_aux : $(mainLatexFileDir)/$(mainLatexFile1).tex $(files)
+$(mainLatexFileDir)/$(mainLatexFile1)_aux : $(mainLatexFileDir)/$(mainLatexFile1).tex $(files) $(neededAgdaStyle)
 	echo "Phase 2.1 : run latex before running bibtex"
 	if [ -f $(mainLatexFileDir)/$(mainLatexFile1).aux ] ; then  sed -i.bak --file postprocessAuxFile.sed $(mainLatexFileDir)/$(mainLatexFile1).aux ; fi
 	cd $(mainLatexFileDir); $(pdflatex) $(mainLatexFile1).tex
