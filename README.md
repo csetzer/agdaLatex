@@ -16,8 +16,8 @@ from the Agda Implementors Meeting XXXVIII Swansea 13 May 2024
 
 ## Example
 
-*Preliminaries* The paths `mainLatexFiles`, `agda`, `generatedLagda`,
-`agdaLatex-before-sed`, `agdaLatex` used in the following
+*Preliminaries* The paths `mainLatexFiles`, `agda`, `_generatedLagda`,
+`_agdaLatex-before-sed`, `_agdaLatex` used in the following
 can be customized in the Makefile.
 
 The main  example is
@@ -171,13 +171,13 @@ The configuration is
   - the default is `agda`n
 
 - `generatedLagdaDir` is a directory where generated lagda files are moved to.
-   - The default is `lagda`
+   - The default is `_lagda`
 
-- `generatedAgdaLatexBeforeSedFileDir` is where intermediate latex files generated from lagda files are placed. 
-  - The default is `agdaLatex-before-sed`
+- `generatedAgdaLatexBeforeSedFileDir` is where intermediate latex files generated from lagda files are placed.
+  - The default is `_agdaLatex-before-sed`
 
 - `generatedAgdaLatexFileDir` is the directory where the LaTeX files generated from the agda files, called "agdaLatex" files are placed.
-  - The default is `agdaLatex`
+  - The default is `_agdaLatex`
 
 - `mainLatexFile1` and `mainLatexFile2` define the two main Latex Files on which pdflatex and bibtex is executed
 

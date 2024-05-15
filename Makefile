@@ -12,15 +12,15 @@ mainLatexFileDir = mainLatexFiles
 mainAgdaDir = agda
 
 # auxiliary directory containing generated lagda files
-generatedLagdaDir = generatedLagda
+generatedLagdaDir = _lagda
 
 # auxiliary directory containing intermediate latex-before-sed files
 # NOTE: needs to be defined relative to the current directory
 
-generatedAgdaLatexBeforeSedFileDir = agdaLatex-before-sed
+generatedAgdaLatexBeforeSedFileDir = _agdaLatex-before-sed
 
 # directory where the generated latex files will be moved
-generatedAgdaLatexFileDir = agdaLatex
+generatedAgdaLatexFileDir = _agdaLatex
 
 # This script allows to create the latex files from agda file
 # and run latex on two different main latex file
