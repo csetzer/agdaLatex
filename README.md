@@ -84,9 +84,9 @@ You need to have
 awk, sed, GNU make, pdflatex, bibtex, agda
 installed.
 
-If using windows you might need to install Ubuntu as a Windows subsystem WSL (supported from the Microsoft store).
+If using Windows you might need to install Ubuntu as a Windows subsystem WSL (supported from the Microsoft store).
 
-## Main commands for geneated agdaLatex files and running LaTeX
+## Main commands for creating generated latex files (called agdaLatex files) and running LaTeX
 
 The command
 
@@ -115,17 +115,16 @@ agda/example.agda
 agda/example2.agda
 
 The name of mymacro is formed from
-- a global prefix which you define at the beginning of the agda file
-  to indicate which agda file you are referring to
+- a global prefix which you define at the beginning of the agda file to indicate which agda file you are referring to
 - a name you give to your definition
 
 In your Agda file you add at the beginning a line
 
---@PREFIX@myprefix
+`--@PREFIX@myprefix`
 
-which defines the prefix to be used for your current agda file.
+which defines the prefix to be used for your current Agda file.
 
-Then for agda code to be included you add at the beginning
+Then for Agda code to be included you add at the beginning
 
 `--@BEGIN@name`
 `some agda code`
@@ -165,40 +164,30 @@ instead of
 ## Configuration
 
 The configuration is
-- mainLatexFileDir is where your main latex files are located
-  the default is   mainLatexFiles
-- bibtexMainLatexFile1, bibtexMainLatexFile2   determine whether to run bibtex on mainLatexFile1, 
-  mainLatexFile2 respectively
-- mainAgdaDir is the root directory where your agda files are located
-  the default is agda
-- generatedLagdaDir is a directory where generated lagda files are
-     moved to
-  the default is lagda   
-- generatedLatexBeforeSedFileDir
-  is the directory where intermediate latex files (before running sed)
-   are placed. Currently the agda.sty files will end up here
-- generatedLatexFileDir-
-  is the directory where the generated latex files are created
-  these are the files to be imported into your latex file
-  they will defines \newcommand  latex macros defining the latex ode
+- `mainLatexFileDir1` is where your main latex files are located
+  - The default is   `mainLatexFiles`
 
-- NOTE:
-  you should not use
-  generatedLagdaDir
-  generatedLatexBeforeSedFileDir
-  generatedLatexFileDir
+- `mainAgdaDir`is the root directory where the agda files from which you want to generated latex files are located.
+  - the default is `agda`n
 
-  for other purposes since the files there might be overwritten or
+- `generatedLagdaDir` is a directory where generated lagda files are moved to.
+   - The default is `lagda`
+
+- `generatedAgdaLatexBeforeSedFileDir` is where intermediate latex files generated from lagda files are placed. 
+  - The default is `agdaLatex-before-sed`
+
+- `generatedAgdaLatexFileDir` is the directory where the LaTeX files generated from the agda files, called "agdaLatex" files are placed.
+  - The default is `agdaLatex`
+
+- `mainLatexFile1` and `mainLatexFile2` define the two main Latex Files on which pdflatex and bibtex is executed 
+  
+- `bibtexMainLatexFile1`,  `bibtexMainLatexFile2`   determine whether to run bibtex on mainLatexFile1,   mainLatexFile2 respectively
+
+
+**NOTE:** You should not use
+`generatedLagdaDir`, `generatedAgdaLatexBeforeSedFileDir`, `generatedAgdaLatexFileDir`
+for other purposes since the files there might be overwritten or
   deleted
-
-  An exception is a file agda.sty  in
-  generatedLatexBeforeSedFileDir
-
-  where you can use your own version
-
-  If it doesn't exist the script will put the agda generated agda.sty
-  file there
-
 
 
 
