@@ -14,6 +14,13 @@ contains the original proposal for a code sprint
 from the Agda Implementors Meeting XXXVIII Swansea 13 May 2024
 
 
+## Running the example
+
+Download the repository and execute
+
+`make`
+
+
 ## Example
 
 *Preliminaries* The paths `mainLatexFiles`, `agda`, `_generatedLagda`,
