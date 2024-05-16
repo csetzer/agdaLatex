@@ -80,9 +80,36 @@ and tags introducing a macro  for inline code:
 
 The file
 `mainLatexFiles/exampleMainLatexFile1.tex`
-then gives example uses for these macros
-from which a LaTeX file is generated when running
+then gives example uses for these macros from which a LaTeX file is generated when running
 `make`
+
+## Setup of LaTeX files
+
+The macro file
+`mainLatexFiles/macrosAgdaAdaption.tex`
+
+loads the file
+`agda.sty`
+which will appear in
+`_agdaLatex/agda.sty`
+(If you add your own adapted file there it should stay there)
+For Unicode characters, some macros are defined in
+`mainLatexFiles/macrosAgdaAdaption.tex`
+such as
+`\DeclareUnicodeCharacter{2115}{\ensuremath{\mathbb{N}}}`
+which defines the Unicode character 0x2115 (blackboard face N) as the LaTeX code for the natural numbers.
+Over time more characters will be added to this file.
+If you get an error, its usually best to search online for unicode and the hexcode displayed, and then define a corresponding LaTeX definition.
+**Note** Please note that if you use the LaTeX style file `inputenc` you should use `utf` instead of `utfx` (the latter is no longer maintained).
+
+You need to include the generated LaTeX file and the `macrosAgdaAdaption.tex`
+in the example defined as
+
+`\input macrosAgdaAdaption`
+`\input ../_agdaLatex/example.tex`
+`\input ../_agdaLatex/example2.tex`
+
+
 
 
 ## Required Software
@@ -168,6 +195,12 @@ In order to create inline code, use
 instead of
 `--@BEGIN@name`
 
+## Alignment of of code in Agda files
+
+In order to avoid overalignment, only code which is preceded by double blanks is aligned (as it the standard for lagda files.
+
+Note that some Unicode characters are shorter or longer when displayed in Agda, whereas for alignment purposes they count as single characters. By moving in Emacs cursor up and down you can find out where the correct position is.
+
 ## Configuration
 
 The configuration is
@@ -195,3 +228,8 @@ The configuration is
 `generatedLagdaDir`, `generatedAgdaLatexBeforeSedFileDir`, `generatedAgdaLatexFileDir`
 for other purposes since the files there might be overwritten or
   deleted
+
+## Type-checking of Agda files
+
+The code will type-check all original agda files, and will generated the latex files from the generated lagda files without type-checking. This should reduce the amount of time used for type-checking.
+The type-checking is a precaution so that you have the guaranteed that all agda files used are properly type-checked.
