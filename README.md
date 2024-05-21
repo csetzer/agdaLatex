@@ -1,115 +1,101 @@
 # Integrating Agda Files into Latex
 
 The code in this directory is based on files created by
-  Andreas Abel, Stephan Adelsberger, Anton Setzer
+  Andreas Abel, Stephan Adelsberger, Anton Setzer.
 
-This directory contains a Makefile with some additional script and example latex, bibtex, and agda files which allows to integrate agda files into Latex files,   by using normal agda files (no need to use lagda).
-The script will generated from tagged Agda files LaTeX  macros which generate the latex code from agda files.
+The standard way to produce LaTeX documents incorporating Agda code is to write a literate Agda (`.lagda`)
+file and use `agda --latex` command to generate the LaTeX source code.  However, there are certain situations
+in which this approach is inconvenient or impossible.  (TODO: give some examples)
+
+This directory contains a `Makefile` with some additional scripts and example latex, bibtex, and agda files which allows to integrate agda files into Latex files, by using normal agda files (no need to use lagda).
+The script will take tagged Agda files and generate LaTeX code and macros.
 
 ## Slides
 
-slidesCodesprintProposal-AgdaMeetingXXXVIII-SwanseaMay2024.pdf
+[slidesCodesprintProposal-AgdaMeetingXXXVIII-SwanseaMay2024.pdf][]
 
-contains the original proposal for a code sprint
-from the Agda Implementors Meeting XXXVIII Swansea 13 May 2024
-
-
-## Running the example
-
-Download the repository and execute
-
-`make`
+contains slides for presenting the original proposal for a code sprint
+at the Agda Implementors Meeting XXXVIII, Swansea, 13 May 2024.
 
 
 ## Example
 
-*Preliminaries* The paths `mainLatexFiles`, `agda`, `_generatedLagda`,
-`_agdaLatex-before-sed`, `_agdaLatex` used in the following
-can be customized in the Makefile.
+### Running the example
 
-The main  example is
+Download the repository and execute it by invoking `make` in the main parent directory of the repo.
 
-`mainLatexFiles/exampleMainLatexFile1.tex`
+### Explanation: preliminaries
 
-which refers to the Agda file
-`agda/example.agda`
+The paths `mainLatexFiles`, `agda`, `_generatedLagda`, `_agdaLatex-before-sed`, `_agdaLatex` 
+used in the following can be customized in the `Makefile`.
 
-After running
-`make`
-a generated agdaLatex file
-`latex/example.tex`
-is created which defines LaTeX macros which, when used in a LaTeX file, adds the Agda code to LaTeX.
-The `make` command will as well run pdflatex and bibtex
-on the file
-`mainLatexFiles/exampleMainLatexFile1.tex`
+**The main example**: `mainLatexFiles/exampleMainLatexFile1.tex`
 
-### Example Agda file with tags
+The LaTeX file `exampleMainLatexFile1.tex` makes references to code in the Agda file 
+`agda/example.agda`.
 
-The file `example.agda`
+Running `make` generates the agdaLatex file `latex/example.tex` which defines LaTeX macros
+pointing to certain blocks of Agda code. When used in a LaTeX file, these macros add the 
+Agda code blocks to the LaTeX file.
 
-starts with
-`--@PREFIX@example`
-
-which sets the prefix to "example"
-
-This prefix will be added in front of all LaTeX macros.
-We recommend to use for prefix a name which indicate which Agda file you are referring to so that you can find the Agda file easily, where your code and the LaTex macros are defined.
-
-*Note* LaTeX only allows in macros normal character, especially no digits, as often used for names of agda files. A workaround is to use e.g. "one" for "1", "two" for "2", etc.
+The `make` command will also run `pdflatex` and `bibtex` on the file
+`mainLatexFiles/exampleMainLatexFile1.tex`.
 
 
-The file `example.agda` then  tags  the Agda code defining the natural numbers with name "N" using
+### Explanation: tags
 
-`--@BEGIN@N`
-`--@END`
+The file `example.agda` starts with `--@PREFIX@example` which sets the prefix to "example."
 
-From this name "N" and the prefix "example" a LaTeX macro
+This prefix will be added in front of all LaTeX macros derived from the `example.agda` file.
+We recommend using a prefix with a name that indicates the Agda file that generates the LaTeX 
+macros and code as this will make it easier to find that Agda file when it needs to be 
+inspected or adjusted.
 
-`\exampleN`
+*Note* LaTeX only allows normal characters (in particular no digits) in macros.  However, numbers often appear in names of Agda files.  A workaround is to use e.g. "one" for "1", "two" for "2", etc.
 
-is generated
-(where "exampleN"  =  "example" ++ "N" )
+The file `example.agda` tags the Agda code defining the natural numbers with name "N" using
 
-Furthermore, the agda file has tags introducing a macro
+``` agda
+--@BEGIN@N
+--@END
+```
 
-`\exampleU`
+From this name "N" and the prefix "example" the macro `\exampleN` is generated 
+(where "exampleN"  =  "example" ++ "N").
 
-and tags introducing a macro  for inline code:
+Furthermore, the agda file has tags introducing the macros `\exampleU` and `\exampleT`, 
+the latter of which is for inline code.
 
-\exampleT
+The file `mainLatexFiles/exampleMainLatexFile1.tex` gives example uses for these 
+macros from which a LaTeX file is generated by running `make`.
 
-The file
-`mainLatexFiles/exampleMainLatexFile1.tex`
-then gives example uses for these macros from which a LaTeX file is generated when running
-`make`
 
 ## Setup of LaTeX files
 
-The macro file
-`mainLatexFiles/macrosAgdaAdaption.tex`
+The macro file `mainLatexFiles/macrosAgdaAdaption.tex` loads the file
+`agda.sty` which will appear in `_agdaLatex/agda.sty`.
+(If you add your own adapted file there it should stay there.)
 
-loads the file
-`agda.sty`
-which will appear in
-`_agdaLatex/agda.sty`
-(If you add your own adapted file there it should stay there)
 For Unicode characters, some macros are defined in
 `mainLatexFiles/macrosAgdaAdaption.tex`
 such as
 `\DeclareUnicodeCharacter{2115}{\ensuremath{\mathbb{N}}}`
-which defines the Unicode character 0x2115 (blackboard face N) as the LaTeX code for the natural numbers.
+which defines the Unicode character 0x2115 (blackboard-bold face N) as the LaTeX code for the natural numbers.
 Over time more characters will be added to this file.
-If you get an error, its usually best to search online for unicode and the hexcode displayed, and then define a corresponding LaTeX definition.
-**Note** Please note that if you use the LaTeX style file `inputenc` you should use `utf` instead of `utfx` (the latter is no longer maintained).
+
+If you get an error stemming from a unicode problem, it's usually best to search online for unicode and the hexcode displayed, and then define a corresponding LaTeX definition.
+
+**Note** If you use the LaTeX style file `inputenc`, then you should use `utf` instead of `utfx` (the latter is no longer maintained).
 
 You need to include the generated LaTeX file and the `macrosAgdaAdaption.tex`
-in the example defined as
+in the main LaTeX file.  For example, in `mainLatexFiles/exampleMainLatexFile1.tex` this is done
+with the lines
 
-`\input macrosAgdaAdaption`
-`\input ../_agdaLatex/example.tex`
-`\input ../_agdaLatex/example2.tex`
-
-
+``` tex
+\input macrosAgdaAdaption
+\input ../_agdaLatex/example.tex
+\input ../_agdaLatex/example2.tex
+```
 
 
 ## Required Software
@@ -120,18 +106,16 @@ installed.
 
 If using Windows you might need to install Ubuntu as a Windows subsystem WSL (supported from the Microsoft store).
 
+
 ## Main commands for creating generated latex files (called agdaLatex files) and running LaTeX
 
 The command
 
 `make`
 
-will create the generated latex files,
-It will then execute pdflatex and bibtex on the file `mainLatexFiles/mainLatexFile1`
+will create the generated latex files and execute pdflatex and bibtex on the file `mainLatexFiles/mainLatexFile1`.
 
-
-To do the same for `mainLatexFiles/mainLatexFile2` execute
-`make default2`
+To do the same for `mainLatexFiles/mainLatexFile2` execute `make default2`.
 
 
 ## Precise Syntax for Agda files
@@ -141,59 +125,69 @@ latex file which contain definitions
 
 \newcommand{\mymacro}{...}
 
-where \mymacro adds Agda code from your Agda file into
-any existing latex file.
+Inserting `\mymacro` in a LaTeX file will then add the document Agda code from the file used to generate the macro.  Example files are
 
-Example files are
+``` sh
 agda/example.agda
 agda/example2.agda
+```
 
 The name of mymacro is formed from
 - a global prefix which you define at the beginning of the agda file to indicate which agda file you are referring to
 - a name you give to your definition
 
-In your Agda file you add at the beginning a line
+At the beginning of your Agda file a line like
 
-`--@PREFIX@myprefix`
+``` agda
+--@PREFIX@myprefix
+```
 
-which defines the prefix to be used for your current Agda file.
+defines the prefix to be used for the macro names associated with the code in this Agda file.
 
-Then for Agda code to be included you add at the beginning
+Then for each Agda code block that you might wish to include in your LaTeX document, you use the following:
 
-`--@BEGIN@name`
-`some agda code`
-`--@END`
+``` agda
+--@BEGIN@name
+some agda code
+--@END
+```
 
-Both myprefix and name should only contain normal letters and no digits, since a latex macro is generated from these.
+Both `myprefix` and `name` should only contain normal letters and no digits, since a LaTeX macro is generated from these.
 
 The code will generate a LaTeX macro
-\`newcommand{\mymacro}{...}`
-where mymacro is the concatenation of  myprefix  and name
+`\newcommand{\mymacro}{...}`
+where `mymacro` will be the concatenation of `myprefix` and `name`.
 
 For instance in
 `agda/example.agda`
-the prefix  is given by
+the prefix is given by
 
-`--@PREFIX@example`
+``` agda
+--@PREFIX@example
+```
 
-and an example is the code starting with
+and the Agda code block starting with
 
-`--@BEGIN@N`
+``` agda
+--@BEGIN@N
+```
 
 and ending with
 
-`--@END`
+``` agda
+--@END
+```
 
-which generates a macro
+generates the macro `\exampleN`.
 
-`\exampleN`
 
 ### inline code
-In order to create inline code, use
+In order to create inline code, instead of `--@BEGIN@name`, use
 
-`--@BEGIN-inline@name`
-instead of
-`--@BEGIN@name`
+``` agda
+--@BEGIN-inline@name
+```
+
 
 ## Alignment of of code in Agda files
 
@@ -201,35 +195,39 @@ In order to avoid overalignment, only code which is preceded by double blanks is
 
 Note that some Unicode characters are shorter or longer when displayed in Agda, whereas for alignment purposes they count as single characters. By moving in Emacs cursor up and down you can find out where the correct position is.
 
+
 ## Configuration
 
-The configuration is
-- `mainLatexFileDir1` is where your main latex files are located
-  - The default is   `mainLatexFiles`
+We now describe organizational structure of the example project.  Other projects using `agdaLatex` should follow a similar structure.
 
-- `mainAgdaDir`is the root directory where the agda files from which you want to generated latex files are located.
-  - the default is `agda`n
+- `mainLatexFileDir1`: directory containing the main LaTeX files  
+  (default: `mainLatexFiles`)
 
-- `generatedLagdaDir` is a directory where generated lagda files are moved to.
-   - The default is `_lagda`
+- `mainAgdaDir`: directory containing the Agda files used to generate LaTeX macros for inserting Agda blocks into LaTeX files  
+  (default: `agda`)
 
-- `generatedAgdaLatexBeforeSedFileDir` is where intermediate latex files generated from lagda files are placed.
-  - The default is `_agdaLatex-before-sed`
+- `generatedLagdaDir`: directory where generated `.lagda` files are moved to after being generated from Agda files  
+  (default: `_lagda`)
 
-- `generatedAgdaLatexFileDir` is the directory where the LaTeX files generated from the agda files, called "agdaLatex" files are placed.
-  - The default is `_agdaLatex`
+- `generatedAgdaLatexBeforeSedFileDir`: directory where intermediate latex files are placed  
+  (default: `_agdaLatex-before-sed`)
 
-- `mainLatexFile1` and `mainLatexFile2` define the two main Latex Files on which pdflatex and bibtex is executed
+- `generatedAgdaLatexFileDir`: directory where "agdaLatex" files (LaTeX files generated from the agda files) are placed  
+  (default: `_agdaLatex`)
 
-- `bibtexMainLatexFile1`,  `bibtexMainLatexFile2`   determine whether to run bibtex on mainLatexFile1,   mainLatexFile2 respectively
+- `mainLatexFile1`, `mainLatexFile2`: the two main Latex Files on which `pdflatex` and `bibtex` are executed
+
+- `bibtexMainLatexFile1`, `bibtexMainLatexFile2`: determine whether to run `bibtex` on `mainLatexFile1` or `mainLatexFile2`, respectively
 
 
-**NOTE:** You should not use
+**NOTE:** Do not edit
 `generatedLagdaDir`, `generatedAgdaLatexBeforeSedFileDir`, `generatedAgdaLatexFileDir`
-for other purposes since the files there might be overwritten or
-  deleted
+since the files are automatically generated, so your edits may be overwritten or deleted.
 
 ## Type-checking of Agda files
 
 The code will type-check all original agda files, and will generated the latex files from the generated lagda files without type-checking. This should reduce the amount of time used for type-checking.
 The type-checking is a precaution so that you have the guaranteed that all agda files used are properly type-checked.
+
+[slidesCodesprintProposal-AgdaMeetingXXXVIII-SwanseaMay2024.pdf]: https://github.com/williamdemeo/agdaLatex/blob/main/slidesCodesprintProposal-AgdaMeetingXXXVIII-SwanseaMay2024.pdf
+
